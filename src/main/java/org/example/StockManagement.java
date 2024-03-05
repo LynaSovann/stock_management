@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.controller.ProductController;
 import org.example.utils.table.RenderTable;
 import org.example.utils.validation.ValidationInput;
 
@@ -7,6 +8,8 @@ import java.util.Scanner;
 
 public class StockManagement {
     public void run() {
+
+        ProductController productController = new ProductController();
 
         String choice;
         do {
@@ -24,9 +27,11 @@ public class StockManagement {
             switch (choice.toLowerCase()) {
                 case "*":
                     System.out.println("Display data");
+                    productController.displayProducts();
                     break;
                 case "w":
                     System.out.println("Write data");
+                    productController.insertProduct();
                     break;
                 case "r":
                     System.out.println("read data");

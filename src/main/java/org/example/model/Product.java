@@ -65,6 +65,6 @@ public class Product {
                 ", unit_price=" + unit_price +
                 ", qty=" + qty +
                 ", imported_date=" + imported_date +
-                '}';
+                '}' + "\n";
     }
 }
