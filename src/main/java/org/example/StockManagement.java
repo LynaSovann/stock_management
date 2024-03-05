@@ -8,7 +8,6 @@ public class StockManagement {
     public void run() {
 
         String choice;
-
         do {
             RenderTable.renderMenu();
             System.out.print("=> Choose an option: ");
