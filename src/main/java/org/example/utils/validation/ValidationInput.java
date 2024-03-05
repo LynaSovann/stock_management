@@ -1,6 +1,7 @@
 package org.example.utils.validation;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationInput {
@@ -11,7 +12,17 @@ public class ValidationInput {
         return input;
     }
 
-    public static boolean isValidate(String someString,String regex){
-        return Pattern.matches(regex,someString);
+    public String validate(String prompt, String errorMsg, String regex){
+        String input;
+        Pattern pattern = Pattern.compile(regex);
+        do {
+            System.out.print(prompt);
+            input = new Scanner(System.in).nextLine();
+            Matcher matcher = pattern.matcher(input);
+            if (!matcher.matches()) {
+                System.out.println(errorMsg);
+            }
+        } while (!input.matches(regex));
+        return input;
     }
 }
