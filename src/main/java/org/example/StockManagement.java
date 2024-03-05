@@ -10,6 +10,7 @@ public class StockManagement {
 
         String choice;
         do {
+            System.out.println("\n\n");
             System.out.println("""
                              ███████╗████████╗ ██████╗  ██████╗██╗  ██╗    ███╗   ███╗ ██████╗ ███████╗ \s
                              ██╔════╝╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔╝    ████╗ ████║██╔════╝ ██╔════╝ \s
