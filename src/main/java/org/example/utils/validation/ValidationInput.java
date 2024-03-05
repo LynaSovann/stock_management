@@ -5,14 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationInput {
-    public static String getStringInput(String prompt) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(prompt);
-        String input = scanner.nextLine();
-        return input;
-    }
 
-    public String validate(String prompt, String errorMsg, String regex){
+    public static String validate(String prompt, String errorMsg, String regex){
         String input;
         Pattern pattern = Pattern.compile(regex);
         do {
