@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.utils.table.RenderTable;
+import org.example.utils.validation.ValidationInput;
 
 import java.util.Scanner;
 
@@ -9,9 +10,17 @@ public class StockManagement {
 
         String choice;
         do {
+            System.out.println("\n\n");
+            System.out.println("""
+                             ███████╗████████╗ ██████╗  ██████╗██╗  ██╗    ███╗   ███╗ ██████╗ ███████╗ \s
+                             ██╔════╝╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔╝    ████╗ ████║██╔════╝ ██╔════╝ \s
+                             ███████╗   ██║   ██║   ██║██║     █████╔╝     ██╔████╔██║██║  ███╗███████╗ \s
+                             ╚════██║   ██║   ██║   ██║██║     ██╔═██╗     ██║╚██╔╝██║██║   ██║╚════██║ \s
+                             ███████║   ██║   ╚██████╔╝╚██████╗██║  ██╗    ██║ ╚═╝ ██║╚██████╔╝███████║ \s
+                             ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ \s
+                             """);
             RenderTable.renderMenu();
-            System.out.print("=> Choose an option: ");
-            choice = new Scanner(System.in).nextLine();
+            choice = ValidationInput.validate("=> Choose an option: ", "Number is not allowed!", "^[a-zA-Z\\*]+");
             switch (choice.toLowerCase()) {
                 case "*":
                     System.out.println("Display data");
@@ -27,6 +36,14 @@ public class StockManagement {
                     break;
                 case "d":
                     System.out.println("delete data");
+                    break;
+                case "e":
+                    System.out.println("==================================");
+                    System.out.println("\t* Goodbye");
+                    System.out.println("==================================");
+                    break;
+                default:
+                    System.out.println("Invalid option!");
                     break;
             }
         } while(!choice.equalsIgnoreCase("e"));
