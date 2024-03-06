@@ -12,8 +12,8 @@ public class ProductController {
         productService.insertUnsavedProduct(productView.insertUnsavedProduct());
     }
 
-    public void savedProduct() {
-        productService.savedProduct();
+    public void savedProduct(){
+        productView.displaySavedCase(productService.savedProduct());
     }
 
     public void displayUnsavedProduct() {

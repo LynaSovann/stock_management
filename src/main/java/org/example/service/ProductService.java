@@ -8,7 +8,7 @@ public interface ProductService {
     void insertUnsavedProduct(Product product);
     List<Product> displayUnsavedProduct();
 //    void savedProduct();
-    List<Integer> savedProduct();
+    List<Product> savedProduct();
     List<Product> displayProduct();
     List<Product> displayUpdatedProduct();
 //    void insertSavedProduct(Product product);

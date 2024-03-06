@@ -3,9 +3,6 @@ package org.example.view;
 import org.example.model.Product;
 import org.example.utils.table.RenderTable;
 import org.example.utils.validation.ValidationInput;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductView {
@@ -64,7 +61,27 @@ public class ProductView {
         return Integer.parseInt(updateId);
     }
 
-    public void displaySavedCase(List<Product> products, List<Product> updateProduct) {
+    public void savedProduct(List<Product> products) {
+        if(!products.isEmpty()) {
+            for(Product pro : products) {
+                System.out.println("* New product: "+  pro.getName() + " was inserted successfully *");
+            }
+        } else {
+            System.out.println("Unsaved table is empty!");
+        }
+    }
+
+    public void savedUpdateProduct(List<Product> products) {
+        if(!products.isEmpty()) {
+            for(Product pro : products) {
+                System.out.println("* Product : "+  pro.getName() + " was updated successfully *");
+            }
+        } else {
+            System.out.println("There's no updated product to save!");
+        }
+    }
+
+    public void displaySavedCase(List<Product> products) {
         String choice;
 
         do {
@@ -77,7 +94,7 @@ public class ProductView {
 
             switch (choice.toLowerCase()) {
                 case "ui":
-
+                    savedProduct(products);
                     break;
                 case "uu":
 
