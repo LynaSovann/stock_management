@@ -27,4 +27,8 @@ public class ProductController {
         productService.insertUnsavedProduct(productView.insertUpdateProduct());
     }
 
+    public void exitProgram() {
+        productView.exitProgram(productService.exitProgram());
+    }
+
 }
