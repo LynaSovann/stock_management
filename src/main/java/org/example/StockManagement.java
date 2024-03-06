@@ -56,15 +56,15 @@ public class StockManagement {
                 case "re":
                     break;
                 case "e":
-//                    System.out.println("==================================");
-//                    System.out.println("\t* Goodbye");
-//                    System.out.println("==================================");
+                    System.out.println("==================================");
+                    System.out.println("\t* Goodbye");
+                    System.out.println("==================================");
                     break;
                 default:
                     System.out.println("Invalid option!");
                     break;
             }
-        } while(!running);
+        } while(!choice.equalsIgnoreCase("e"));
        // !choice.equalsIgnoreCase("e")
     }
 }

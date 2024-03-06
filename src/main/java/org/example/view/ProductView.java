@@ -19,7 +19,7 @@ public class ProductView {
         return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
     }
 
-    public void displayUnsavedProduct(List<Product> products) {
+    public void displayUnsavedProduct(List<Product> products, List<Product> updateProduct) {
         String choice;
 
         RenderTable.tableRender(RenderTable.header_title,"product list", products, "","");
@@ -35,7 +35,7 @@ public class ProductView {
                     RenderTable.tableRender(RenderTable.header_title,"product list", products, "","");
                     break;
                 case "u":
-                    System.out.println("display updated product unsaved");
+                    RenderTable.tableRender(RenderTable.header_title, updateProduct, "");
                     break;
                 case "b":
                     return;
@@ -48,11 +48,15 @@ public class ProductView {
 
 
     public void displayProduct(List<Product> products) {
-        if(products.isEmpty()) {
-            System.out.println("No data!");
-        } else {
-            products.forEach(product -> System.out.println(product.toString()));
-        }
+        RenderTable.tableRender(RenderTable.header_title, products, "");
+    }
+
+    public Product insertUpdateProduct() {
+        String name = ValidationInput.validate("=> Enter new product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
+        String unit_price = ValidationInput.validate("=> Enter new unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
+        String qty = ValidationInput.validate("=> Enter new product quantity: ", "invalid qty", "^[0-9]+");
+        System.out.println( "\""+ name + "\"" + " has been added to unsaved updated table successfully.");
+        return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
     }
 
     public void exitProgram(boolean exit) {
