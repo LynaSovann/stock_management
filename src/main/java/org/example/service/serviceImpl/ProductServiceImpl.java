@@ -2,6 +2,7 @@ package org.example.service.serviceImpl;
 
 import org.example.model.Product;
 import org.example.service.ProductService;
+import org.example.utils.validation.ValidationInput;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -14,11 +15,7 @@ public class ProductServiceImpl implements ProductService {
         add(new Product("UnsavedBread", 1.5, 20));
         add(new Product("UnsavedMilk", 2.5, 4));
     }};
-    public static List<Product> updatedProducts = new ArrayList<>(){{
-        add(new Product("Coca", 12.2, 10));
-        add(new Product("Bread", 1.5, 20));
-        add(new Product("Milk", 2.5, 4));
-    }};
+    public static List<Product> updatedProducts = new ArrayList<>();
     private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "123";
@@ -125,6 +122,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void insertUpdateProduct(Product product) {
         updatedProducts.add(product);
+    }
+
+    @Override
+    public boolean findId(int updateId) {
+        boolean found = false;
+        for(int i = 0; i<displayProduct().size(); i++) {
+            if(displayProduct().get(i).getId() == updateId) {
+                found = true;
+            }
+        }
+        return found;
     }
 
     @Override

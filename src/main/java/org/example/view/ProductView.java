@@ -59,6 +59,12 @@ public class ProductView {
         return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
     }
 
+    public int findId() {
+        String updateId = ValidationInput.validate("=> Enter product id to update: ", "Invalid id", "^[0-9]+");
+        return Integer.parseInt(updateId);
+
+    }
+
     public void exitProgram(boolean exit) {
         if(exit) {
             System.out.println("==================================");

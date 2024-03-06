@@ -36,7 +36,7 @@ public class StockManagement {
                     System.out.println("read data");
                     break;
                 case "u":
-                    System.out.println("update data");
+                    productController.insertUpdateProduct();
                     break;
                 case "d":
                     System.out.println("delete data");
