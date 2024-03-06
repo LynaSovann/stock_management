@@ -13,6 +13,8 @@ import java.util.List;
 public class RenderTable {
     private static final CellStyle ALIGN_CENTER = new CellStyle(CellStyle.HorizontalAlign.CENTER);
 
+    public static String[] header_title = {"ID","Name","Unit Price","QTY","Imported Date"};
+
     public static void renderMenu() {
         Table table = new Table(3, BorderStyle.UNICODE_ROUND_BOX);
         List<String> menus = List.of(
@@ -31,17 +33,37 @@ public class RenderTable {
 
     }
 
-    public static void tableRender(int numberOfCols,List<Product> productList,String useForWhat){
-        int countRows = 0;
-        Table t = new Table(numberOfCols, BorderStyle.UNICODE_ROUND_BOX,
-                ShownBorders.SURROUND_HEADER_FOOTER_AND_COLUMNS);
-        List<String> header_title = List.of(
-                "ID","Name","Unit Price","QTY","Imported Date"
-        );
-        if (useForWhat.isEmpty()){
-            t.setColumnWidth(countRows++, 8, 14);
-            t.addCell("Product List", ALIGN_CENTER,4);
+    public static void tableRender(String[] header_title,List<Product> productList,String useForWhat){
+        Table t = new Table(header_title.length, BorderStyle.UNICODE_ROUND_BOX,
+                ShownBorders.ALL);
+        if (useForWhat.equalsIgnoreCase("msg")){
+            t.setColumnWidth(0,25,25);
+            t.addCell(header_title[0],ALIGN_CENTER);
+            System.out.println(t.render());
+            return;
         }
+
+        if (useForWhat.isEmpty()){
+            if (productList.isEmpty()){
+                t.setColumnWidth(0,25,25);
+                t.addCell("No Data",ALIGN_CENTER,5);
+                System.out.println(t.render());
+                return;
+            }
+        }
+
+        if (useForWhat.isEmpty()){
+            for (int i = 0;i<header_title.length;i++)
+                t.setColumnWidth(i, 25, 25);
+        }
+
+
+        if (useForWhat.isEmpty())
+            t.addCell("Product List", ALIGN_CENTER,5);
+
+        for(String title : header_title)
+            t.addCell(title, ALIGN_CENTER);
+
 
         if (!useForWhat.isEmpty()){
             try{
@@ -51,25 +73,35 @@ public class RenderTable {
                 Statement statement = connection.createStatement();
                 String query = "SELECT * FROM \"table_name\"";
                 ResultSet resultSet = statement.executeQuery(query);
-                t.setColumnWidth(countRows++, 8, 14);
-                header_title.forEach(header->{
-                    t.addCell(header, ALIGN_CENTER);
-                });
+                for (int i = 0;i<header_title.length;i++)
+                    t.setColumnWidth(i, 25, 25);
                 while (resultSet.next()){
-                    t.setColumnWidth(countRows++, 8, 14);
-                    t.addCell(String.valueOf(resultSet.getInt(1)), ALIGN_CENTER);
-                    t.addCell(resultSet.getString(2), ALIGN_CENTER);
-                    t.addCell(resultSet.getString(3), ALIGN_CENTER);
-                    t.addCell(resultSet.getString(4), ALIGN_CENTER);
-                    t.addCell(resultSet.getString(5), ALIGN_CENTER);
+                    t.addCell(String.valueOf(resultSet.getInt(1)),ALIGN_CENTER);
+                    t.addCell(resultSet.getString(2),ALIGN_CENTER);
+                    t.addCell(resultSet.getString(3),ALIGN_CENTER);
+                    t.addCell(resultSet.getString(4),ALIGN_CENTER);
+                    t.addCell(resultSet.getString(5),ALIGN_CENTER);
                 }
 
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+                System.out.println(t.render());
+                return;
+
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
         }
+
+        if (useForWhat.isEmpty())
+            productList.forEach(product -> {
+                t.addCell(String.valueOf(product.getId()), ALIGN_CENTER);
+                t.addCell(product.getName(),ALIGN_CENTER);
+                t.addCell(String.valueOf(product.getUnit_price()),ALIGN_CENTER);
+                t.addCell(String.valueOf(product.getQty()),ALIGN_CENTER);
+                t.addCell(String.valueOf(product.getImported_date()),ALIGN_CENTER);
+            });
+
+        t.addCell("Page : 1 / 3",ALIGN_CENTER,2);
+        t.addCell("Total Records : " + productList.size(),ALIGN_CENTER,3);
 
         System.out.println(t.render());
 
