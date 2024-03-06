@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.model.Product;
+import org.example.utils.table.RenderTable;
 import org.example.utils.validation.ValidationInput;
 
 import java.sql.Timestamp;
@@ -21,18 +22,7 @@ public class ProductView {
     public void displayUnsavedProduct(List<Product> products) {
         String choice;
 
-        if(products.isEmpty()) {
-            System.out.println("No unsaved data!"); // display as empty data table
-        } else {
-            // display as table of unsaved product
-            for(Product product : products) {
-                System.out.println("Product#" + product.getId());
-                System.out.println("Product Name: " + product.getName());
-                System.out.println("Product unit price: " + product.getUnit_price());
-                System.out.println("Product Qty: " + product.getQty());
-                System.out.println("Imported date: " + product.getImported_date());
-            }
-        }
+        RenderTable.tableRender(RenderTable.header_title, products, "");
         do {
             System.out.println("I for Unsaved Insertion");
             System.out.println("U for Unsaved Update");
@@ -42,18 +32,7 @@ public class ProductView {
 
             switch (choice.toLowerCase()) {
                 case "i":
-                    if(products.isEmpty()) {
-                        System.out.println("No unsaved data!"); // display as empty data table
-                    } else {
-                        // display as table of unsaved product
-                        for(Product product : products) {
-                            System.out.println("Product#" + product.getId());
-                            System.out.println("Product Name: " + product.getName());
-                            System.out.println("Product unit price: " + product.getUnit_price());
-                            System.out.println("Product Qty: " + product.getQty());
-                            System.out.println("Imported date: " + product.getImported_date());
-                        }
-                    }
+                    RenderTable.tableRender(RenderTable.header_title, products, "");
                     break;
                 case "u":
                     System.out.println("display updated product unsaved");
