@@ -2,17 +2,19 @@ package org.example.service.serviceImpl;
 
 import org.example.model.Product;
 import org.example.service.ProductService;
+import org.example.utils.validation.ValidationInput;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ProductServiceImpl implements ProductService {
     public static List<Product> products = new ArrayList<>();
-    private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
+    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "123";
+    private static final String PASSWORD = "1234";
     private static final String CREATE_SAVED_PRODUCT_TB = """
             CREATE TABLE IF NOT EXISTS saved_product_tb (
                 id SERIAL PRIMARY KEY,
@@ -24,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
             """;
     private static final String GET_ALL_SAVED_PRODUCTS = "SELECT * FROM saved_product_tb;";
     private static final String SAVED_PRODUCT = "INSERT INTO saved_product_tb VALUES (DEFAULT, ? , ? ,?, NOW() )";
+    private static final String UPDATE_PRODUCT = "UPDATE saved_product_tb set(name,unit_price,qty) WHERE VALUES (?,?,?)";
 
     @Override
     public void insertUnsavedProduct(Product product) {
@@ -134,8 +137,23 @@ public class ProductServiceImpl implements ProductService {
 //    }
 
     @Override
-    public void updateProduct(int id) {
-
+    public void updateProduct(Product product) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(UPDATE_PRODUCT);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("-> Input ID to update: "); int  id = scanner.nextInt();
+            products.stream().filter(p -> p.getId() == id).forEach(product1 -> {
+                System.out.print("Update Product Name To: "); String name = scanner.nextLine();
+                System.out.print("Update Unit Price To: "); double unitPrice = scanner.nextDouble();
+                System.out.print("Update QTY To: "); int qty = scanner.nextInt();
+                statement.set
+            });
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

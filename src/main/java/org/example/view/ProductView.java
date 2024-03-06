@@ -7,13 +7,14 @@ import org.example.utils.validation.ValidationInput;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ProductView {
 
     public Product insertUnsavedProduct() {
         System.out.println("Input information of product#" + Product.getCount());
         String name = ValidationInput.validate("=> Enter product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
-        String unit_price = ValidationInput.validate("=> Enter unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
+        String unit_price = ValidationInput.validate( "=> Enter unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
         String qty = ValidationInput.validate("=> Enter product quantity: ", "invalid qty", "^[0-9]+");
         System.out.println( "\""+ name + "\"" + " has been added to unsaved table successfully.");
         return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
@@ -53,5 +54,11 @@ public class ProductView {
         } else {
             products.forEach(product -> System.out.println(product.toString()));
         }
+    }
+    public Product updateProduct(){
+        String name = ValidationInput.validate("Enter new name: ", "Unavailable Update", "[a-zA-Z\\s]+[a-zA-Z]");
+        String unitPrice = ValidationInput.validate("Enter unit price: ","Invalid Unit Price","^[0-9]+[.]+[0-9]+");
+        String qty = ValidationInput.validate("Enter qty", "Invalid QTY","^[0-9]+");
+        return new Product(name,Double.parseDouble(unitPrice),Integer.parseInt(qty));
     }
 }

@@ -27,6 +27,10 @@ public class ProductController {
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
     }
+    public void updateProduct(){
+//        productView.updateProduct(productService.updateProduct());
+    }
+
 
 
 }
