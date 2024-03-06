@@ -27,11 +27,10 @@ public class StockManagement {
             switch (choice.toLowerCase()) {
                 case "*":
                     System.out.println("Display data");
-                    productController.displayProducts();
+//                    productController.displayProducts();
                     break;
                 case "w":
-                    System.out.println("Write data");
-                    productController.insertProduct();
+                    productController.insertUnsavedProduct();
                     break;
                 case "r":
                     System.out.println("read data");
@@ -41,6 +40,20 @@ public class StockManagement {
                     break;
                 case "d":
                     System.out.println("delete data");
+                    break;
+                case "s":
+                    break;
+                case "se":
+                    break;
+                case "sa":
+                    productController.savedProduct();
+                    break;
+                case "un":
+                    productController.displayUnsavedProduct();
+                    break;
+                case "ba":
+                    break;
+                case "re":
                     break;
                 case "e":
                     System.out.println("==================================");
