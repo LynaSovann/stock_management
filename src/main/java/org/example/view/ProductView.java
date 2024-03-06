@@ -75,4 +75,16 @@ public class ProductView {
             products.forEach(product -> System.out.println(product.toString()));
         }
     }
+
+    public void exitProgram(boolean exit) {
+        if(exit) {
+            System.out.println("==================================");
+            System.out.println("\t* Goodbye");
+            System.out.println("==================================");
+        } else {
+            System.out.println("Y/y to save and exit");
+            System.out.println("N/n to exit and don't save");
+            String yon = ValidationInput.validate("=> Enter your option: ", "Invalid option to exit", "[y\\sY\\n\\N]");
+        }
+    }
 }
