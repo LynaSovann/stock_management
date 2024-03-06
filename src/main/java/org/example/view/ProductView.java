@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ProductView {
 
-
     public Product insertUnsavedProduct() {
         System.out.println("Input information of product#" + Product.getCount());
         String name = ValidationInput.validate("=> Enter product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
@@ -67,7 +66,9 @@ public class ProductView {
             }
         } while(!choice.equalsIgnoreCase("e"));
     }
-    public void displayProducts(List<Product> products) {
+
+
+    public void displayProduct(List<Product> products) {
         if(products.isEmpty()) {
             System.out.println("No data!");
         } else {
