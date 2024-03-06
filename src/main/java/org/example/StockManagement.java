@@ -27,7 +27,7 @@ public class StockManagement {
             switch (choice.toLowerCase()) {
                 case "*":
                     System.out.println("Display data");
-//                    productController.displayProducts();
+                    productController.displayUnsavedProduct();
                     break;
                 case "w":
                     productController.insertUnsavedProduct();
