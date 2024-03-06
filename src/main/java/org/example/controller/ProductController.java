@@ -23,6 +23,10 @@ public class ProductController {
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
     }
+    public void updateProduct(){
+//        productView.updateProduct(productService.updateProduct());
+    }
+
 
 //    public void insertProduct() {
 //        productService.insertUnsavedProduct(productView.insertProduct());

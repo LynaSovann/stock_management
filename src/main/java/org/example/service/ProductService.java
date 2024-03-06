@@ -10,6 +10,6 @@ public interface ProductService {
     void savedProduct();
     List<Product> displayProduct();
 //    void insertSavedProduct(Product product);
-    void updateProduct(int id);
+    void updateProduct(Product product);
     void deleteProduct(int id);
 }
