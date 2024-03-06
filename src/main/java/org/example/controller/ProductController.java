@@ -24,12 +24,9 @@ public class ProductController {
         productView.displayUnsavedProduct(productService.displayUnsavedProduct());
     }
 
-//    public void displayProducts() {
-//        productView.displayProducts(productService.getAllUnSavedProducts());
-//    }
+    public void displayProduct() {
+        productView.displayProduct(productService.displayProduct());
+    }
 
-//    public void insertProduct() {
-//        productService.insertUnsavedProduct(productView.insertProduct());
-//    }
 
 }
