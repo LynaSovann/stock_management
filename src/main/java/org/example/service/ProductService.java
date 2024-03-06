@@ -13,6 +13,7 @@ public interface ProductService {
     List<Product> displayUpdatedProduct();
 //    void insertSavedProduct(Product product);
     void insertUpdateProduct(Product product);
+    boolean findId(int id);
     void deleteProduct(int id);
     boolean exitProgram();
 }

@@ -19,13 +19,17 @@ public class ProductController {
     public void displayUnsavedProduct() {
         productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.displayUpdatedProduct());
     }
-
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
     }
 
     public void insertUpdateProduct() {
-        productService.insertUnsavedProduct(productView.insertUpdateProduct());
+        if(productService.findId(productView.findId())) {
+            productService.insertUpdateProduct(productView.insertUpdateProduct());
+        } else {
+            System.out.println("Id not found! cannot update!");
+        }
+
     }
 
 }
