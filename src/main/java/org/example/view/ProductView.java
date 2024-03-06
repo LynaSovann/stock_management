@@ -11,8 +11,8 @@ public class ProductView {
 
     public Product insertUnsavedProduct() {
         System.out.println("Input information of product#" + Product.getCount());
-        String name = ValidationInput.validate("=> Enter product name: ", "Invalid product name", "^[a-zA-Z]+");
-        String unit_price = ValidationInput.validate("=> Enter unit price: ", "Invalid unit price", "^[0-9]+$");
+        String name = ValidationInput.validate("=> Enter product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
+        String unit_price = ValidationInput.validate("=> Enter unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
         String qty = ValidationInput.validate("=> Enter product quantity: ", "invalid qty", "^[0-9]+");
         System.out.println( "\""+ name + "\"" + " has been added to unsaved table successfully.");
         return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
@@ -64,9 +64,7 @@ public class ProductView {
                     System.out.println("Invalid option! Please choose your option again mindfully!");
                     break;
             }
-
         } while(!choice.equalsIgnoreCase("e"));
-
     }
 
 
