@@ -15,6 +15,14 @@ public class Product {
         return count+1;
     }
 
+    public Product(int id, String name, double unit_price, int qty, LocalDate imported_date) {
+        this.id = id;
+        this.name = name;
+        this.unit_price = unit_price;
+        this.qty = qty;
+        this.imported_date = imported_date;
+    }
+
     public Product(String name, double unit_price, int qty) {
         this.id = ++count;
         this.name = name;
