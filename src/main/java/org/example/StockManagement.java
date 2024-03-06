@@ -56,9 +56,7 @@ public class StockManagement {
                 case "re":
                     break;
                 case "e":
-                    System.out.println("==================================");
-                    System.out.println("\t* Goodbye");
-                    System.out.println("==================================");
+                    productController.exitProgram();
                     break;
                 default:
                     System.out.println("Invalid option!");

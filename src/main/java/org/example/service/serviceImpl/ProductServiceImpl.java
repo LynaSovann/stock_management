@@ -4,18 +4,17 @@ import org.example.model.Product;
 import org.example.service.ProductService;
 import org.example.utils.validation.ValidationInput;
 
+import java.net.Inet4Address;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    public static List<Product> products = new ArrayList<>(){{
-        add(new Product("UnsavedCoca", 12.2, 10));
-        add(new Product("UnsavedBread", 1.5, 20));
-        add(new Product("UnsavedMilk", 2.5, 4));
-    }};
+    public static List<Product> products = new ArrayList<>();
     public static List<Product> updatedProducts = new ArrayList<>();
+    public static List<Integer> updateId = new ArrayList<>();
+
     private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "123";
@@ -116,7 +115,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean exitProgram() {
-        return !products.isEmpty();
+        if(products.isEmpty() && updatedProducts.isEmpty()) return true;
+        else return false;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ProductView {
                     System.out.println("Invalid option! Please choose your option again mindfully!");
                     break;
             }
-        } while(!choice.equalsIgnoreCase("e"));
+        } while(!choice.equalsIgnoreCase("b"));
     }
 
 
@@ -62,18 +62,57 @@ public class ProductView {
     public int findId() {
         String updateId = ValidationInput.validate("=> Enter product id to update: ", "Invalid id", "^[0-9]+");
         return Integer.parseInt(updateId);
-
     }
+
+    public void displaySavedCase(List<Product> products, List<Product> updateProduct) {
+        String choice;
+
+        do {
+            System.out.println("Do you want to save Unsaved Inserted or Unsaved  Updated?");
+            System.out.println("ui for saving Unsaved Insertion");
+            System.out.println("uu for saving Unsaved Update");
+            System.out.println("B for back to main menu");
+
+            choice = ValidationInput.validate("=> Choose an option: ", "Number is not allowed!", "^[a-zA-Z\\*]+");
+
+            switch (choice.toLowerCase()) {
+                case "ui":
+
+                    break;
+                case "uu":
+
+                    break;
+                case "b":
+                    return;
+                default:
+                    System.out.println("Invalid option! Please choose your option again mindfully!");
+                    break;
+            }
+        } while(!choice.equalsIgnoreCase("b"));
+    }
+
 
     public void exitProgram(boolean exit) {
         if(exit) {
-            System.out.println("==================================");
-            System.out.println("\t* Goodbye");
-            System.out.println("==================================");
+            goodbyeTemplat();
         } else {
+            System.out.println("You have unsaved product drafting in unsaved table. Do you want to save?");
             System.out.println("Y/y to save and exit");
             System.out.println("N/n to exit and don't save");
-            String yon = ValidationInput.validate("=> Enter your option: ", "Invalid option to exit", "[y\\sY\\n\\N]");
+            String yon = ValidationInput.validate("=> Enter your option: ", "Invalid option to exit", "^[yYnN]$");
+            if(yon.equals("Y") | yon.equals("y")) {
+                System.out.println("Saving insert and update to saved box...");
+                goodbyeTemplat();
+            } else {
+                System.out.println("No saving...");
+                goodbyeTemplat();
+            }
         }
+    }
+
+    public static void goodbyeTemplat () {
+        System.out.println("==================================");
+        System.out.println("\t* Goodbye");
+        System.out.println("==================================");
     }
 }

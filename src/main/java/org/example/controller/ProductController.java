@@ -32,4 +32,8 @@ public class ProductController {
 
     }
 
+    public void exitProgram() {
+        productView.exitProgram(productService.exitProgram());
+    }
+
 }
