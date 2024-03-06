@@ -10,8 +10,9 @@ public interface ProductService {
 //    void savedProduct();
     List<Integer> savedProduct();
     List<Product> displayProduct();
+    List<Product> displayUpdatedProduct();
 //    void insertSavedProduct(Product product);
-    void updateProduct(int id);
+    void insertUpdateProduct(Product product);
     void deleteProduct(int id);
     boolean exitProgram();
 }
