@@ -8,12 +8,24 @@ public class ProductController {
     ProductService productService = new ProductServiceImpl();
     ProductView productView = new ProductView();
 
-    public void displayProducts() {
-        productView.displayProducts(productService.getAllUnSavedProducts());
+    public void insertUnsavedProduct() {
+        productService.insertUnsavedProduct(productView.insertUnsavedProduct());
     }
 
-    public void insertProduct() {
-        productService.insertUnsavedProduct(productView.insertProduct());
+    public void displayUnsavedProduct() {
+        productView.displayUnsavedProduct(productService.displayUnsavedProduct());
     }
+
+    public void savedProduct() {
+        productService.savedProduct();
+    }
+
+//    public void displayProducts() {
+//        productView.displayProducts(productService.getAllUnSavedProducts());
+//    }
+
+//    public void insertProduct() {
+//        productService.insertUnsavedProduct(productView.insertProduct());
+//    }
 
 }

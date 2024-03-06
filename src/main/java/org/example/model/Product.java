@@ -1,20 +1,26 @@
 package org.example.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class Product {
     private int id;
     private String name;
     private double unit_price;
     private int qty;
-    private Timestamp imported_date;
+    private LocalDate imported_date;
+    private static int count = 0;
 
-    public Product(int id, String name, double unit_price, int qty, Timestamp imported_date) {
-        this.id = id;
+    public static int getCount() {
+        return count+1;
+    }
+
+    public Product(String name, double unit_price, int qty) {
+        this.id = ++count;
         this.name = name;
         this.unit_price = unit_price;
         this.qty = qty;
-        this.imported_date = imported_date;
+        this.imported_date = LocalDate.now();
     }
 
     public int getId() {
@@ -49,11 +55,11 @@ public class Product {
         this.qty = qty;
     }
 
-    public Timestamp getImported_date() {
+    public LocalDate getImported_date() {
         return imported_date;
     }
 
-    public void setImported_date(Timestamp imported_date) {
+    public void setImported_date(LocalDate imported_date) {
         this.imported_date = imported_date;
     }
 
