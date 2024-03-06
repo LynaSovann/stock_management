@@ -20,9 +20,9 @@ public class ProductController {
         productService.savedProduct();
     }
 
-//    public void displayProducts() {
-//        productView.displayProducts(productService.getAllUnSavedProducts());
-//    }
+    public void displayProduct() {
+        productView.displayProduct(productService.displayProduct());
+    }
 
 //    public void insertProduct() {
 //        productService.insertUnsavedProduct(productView.insertProduct());
