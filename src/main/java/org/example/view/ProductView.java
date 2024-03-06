@@ -22,7 +22,7 @@ public class ProductView {
     public void displayUnsavedProduct(List<Product> products) {
         String choice;
 
-        RenderTable.tableRender(RenderTable.header_title, products, "");
+        RenderTable.tableRender(RenderTable.header_title,"product list", products, "","");
         do {
             System.out.println("I for Unsaved Insertion");
             System.out.println("U for Unsaved Update");
@@ -32,7 +32,7 @@ public class ProductView {
 
             switch (choice.toLowerCase()) {
                 case "i":
-                    RenderTable.tableRender(RenderTable.header_title, products, "");
+                    RenderTable.tableRender(RenderTable.header_title,"product list", products, "","");
                     break;
                 case "u":
                     System.out.println("display updated product unsaved");

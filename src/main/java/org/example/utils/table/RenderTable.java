@@ -8,6 +8,7 @@ import org.nocrala.tools.texttablefmt.Table;
 import org.postgresql.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RenderTable {
@@ -33,7 +34,7 @@ public class RenderTable {
 
     }
 
-    public static void tableRender(String[] header_title,List<Product> productList,String useForWhat){
+    public static void tableRender(String[] header_title,String main_title,List<Product> productList,String useForWhat,String id){
         Table t = new Table(header_title.length, BorderStyle.UNICODE_ROUND_BOX,
                 ShownBorders.ALL);
         if (useForWhat.equalsIgnoreCase("msg")){
@@ -58,12 +59,11 @@ public class RenderTable {
         }
 
 
-        if (useForWhat.isEmpty())
-            t.addCell("Product List", ALIGN_CENTER,5);
+        if (!main_title.isEmpty())
+            t.addCell(main_title.toUpperCase(), ALIGN_CENTER,5);
 
         for(String title : header_title)
             t.addCell(title, ALIGN_CENTER);
-
 
         if (!useForWhat.isEmpty()){
             try{
@@ -71,8 +71,13 @@ public class RenderTable {
                 Class.forName("org.postgresql.Driver");
                 Connection connection = DriverManager.getConnection(user_name,url,password);
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM \"table_name\"";
+//                String query = "SELECT * FROM \"table_name\"";
+                String query = getQueryWithID(id);
                 ResultSet resultSet = statement.executeQuery(query);
+                int rows = statement.executeUpdate(query);
+                if (rows==0){
+                    tableRender(new String[]{"No Data"},"",new ArrayList<>(),"","");
+                }
                 for (int i = 0;i<header_title.length;i++)
                     t.setColumnWidth(i, 25, 25);
                 while (resultSet.next()){
@@ -107,6 +112,10 @@ public class RenderTable {
 
     }
 
+    // might be updated in the future with search by name .....
+    public static String getQueryWithID(String id){
+        return "SELECT * FROM \"TABLE_NAME\" " + (!id.isEmpty() ? "WHERE id="+Integer.parseInt(id) : "" );
+    }
 
 
 }
