@@ -113,6 +113,43 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> saveUpdateProduct() {
+        List<Product> savedProducts = new ArrayList<>();
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            for(Product updateProduct : updatedProducts) {
+                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT);
+                preparedStatement.setString( 1,updateProduct.getName());
+                preparedStatement.setDouble(2, updateProduct.getUnit_price());
+                preparedStatement.setInt(3, updateProduct.getQty());
+                preparedStatement.setDate(4, java.sql.Date.valueOf(updateProduct.getImported_date()) );
+                preparedStatement.setInt(5, updateProduct.getId());
+                if(preparedStatement.executeUpdate() == 1) {
+                    savedProducts.add(updateProduct);
+                }
+            }
+
+            updatedProducts.clear();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                assert connection != null;
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+        return savedProducts;
+    }
+
+    @Override
     public boolean exitProgram() {
         return products.isEmpty() && updatedProducts.isEmpty();
     }

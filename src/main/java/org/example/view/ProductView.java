@@ -96,7 +96,7 @@ public class ProductView {
         }
     }
 
-    public void displaySavedCase(List<Product> products) {
+    public void displaySavedCase(List<Product> products, List<Product> updateProducts) {
         String choice;
 
         do {
@@ -112,7 +112,8 @@ public class ProductView {
                     savedProduct(products);
                     break;
                 case "uu":
-//                    savedUpdateProduct(updateProducts);
+                    System.out.println("Saving update hasn't done yet");
+                    savedUpdateProduct(updateProducts);
                     break;
                 case "b":
                     return;
