@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     public void displayUnsavedProduct() {
-        productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.displayUpdatedProduct());
+        productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.saveUpdateProduct());
     }
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
