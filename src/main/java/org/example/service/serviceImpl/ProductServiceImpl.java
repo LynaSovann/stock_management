@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
             """;
     private static final String GET_ALL_SAVED_PRODUCTS = "SELECT * FROM saved_product_tb;";
     private static final String SAVED_PRODUCT = "INSERT INTO saved_product_tb VALUES (DEFAULT, ? , ? ,?, NOW() )";
-    private static final String UPDATE_PRODUCT = "UPDATE saved_product_tb SET name = ?, unit_price = ?, qty = ? where id = ?;";
+    private static final String UPDATE_PRODUCT = "UPDATE saved_product_tb SET name = ?, unit_price = ?, qty = ?, imported_date = ? where id = ?;";
 
     @Override
     public void insertUnsavedProduct(Product product) {
@@ -114,8 +114,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean exitProgram() {
-        if(products.isEmpty() && updatedProducts.isEmpty()) return true;
-        else return false;
+        return products.isEmpty() && updatedProducts.isEmpty();
     }
 
     @Override
@@ -123,16 +122,6 @@ public class ProductServiceImpl implements ProductService {
         updatedProducts.add(product);
     }
 
-    @Override
-    public boolean findId(int updateId) {
-        boolean found = false;
-        for(int i = 0; i<displayProduct().size(); i++) {
-            if(displayProduct().get(i).getId() == updateId) {
-                found = true;
-            }
-        }
-        return found;
-    }
 
     @Override
     public void deleteProduct(int id) {

@@ -24,7 +24,12 @@ public class ProductController {
     }
 
     public void insertUpdateProduct() {
-        productService.insertUnsavedProduct(productView.insertUpdateProduct());
+        if(productService.findId(productView.findId())) {
+            productService.insertUpdateProduct(productView.insertUpdateProduct());
+        } else {
+            System.out.println("Id not found! cannot update!");
+        }
+
     }
 
     public void exitProgram() {
