@@ -2,9 +2,7 @@ package org.example.service.serviceImpl;
 
 import org.example.model.Product;
 import org.example.service.ProductService;
-import org.example.utils.validation.ValidationInput;
 
-import java.net.Inet4Address;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
