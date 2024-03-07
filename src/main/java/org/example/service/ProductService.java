@@ -15,6 +15,12 @@ public interface ProductService {
     void insertUpdateProduct(Product product);
     List<Product> saveUpdateProduct();
 //    boolean findId(int id);
-    void deleteProduct(int id);
+    void deleteProduct();
     boolean exitProgram();
+
+    void searchProduct();
+
+    void setRow();
+
+    void readOneProduct();
 }

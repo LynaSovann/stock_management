@@ -25,24 +25,25 @@ public class StockManagement {
             choice = ValidationInput.validate("=> Choose an option: ", "Number is not allowed!", "^[a-zA-Z\\*]+");
             switch (choice.toLowerCase()) {
                 case "*":
-                    System.out.println("Display data");
                     productController.displayProduct();
                     break;
                 case "w":
                     productController.insertUnsavedProduct();
                     break;
                 case "r":
-                    System.out.println("read data");
+                    productController.readOneProduct();
                     break;
                 case "u":
                     productController.insertUpdateProduct();
                     break;
                 case "d":
-                    System.out.println("delete data");
+                    productController.deleteProduct();
                     break;
                 case "s":
+                    productController.searchProduct();
                     break;
                 case "se":
+                    productController.setRow();
                     break;
                 case "sa":
                     productController.savedProduct();
