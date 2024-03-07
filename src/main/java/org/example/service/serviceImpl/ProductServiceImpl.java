@@ -149,7 +149,6 @@ public class ProductServiceImpl implements ProductService {
                 System.out.print("Update Product Name To: "); String name = scanner.nextLine();
                 System.out.print("Update Unit Price To: "); double unitPrice = scanner.nextDouble();
                 System.out.print("Update QTY To: "); int qty = scanner.nextInt();
-                statement.set
             });
         }catch (SQLException e){
             System.out.println(e.getMessage());
