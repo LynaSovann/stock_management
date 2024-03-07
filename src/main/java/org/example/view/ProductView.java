@@ -3,6 +3,8 @@ package org.example.view;
 import org.example.model.Product;
 import org.example.utils.table.RenderTable;
 import org.example.utils.validation.ValidationInput;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProductView {
@@ -48,18 +50,31 @@ public class ProductView {
         RenderTable.tableRender(RenderTable.header_title, products, "");
     }
 
-    public Product insertUpdateProduct() {
-        String name = ValidationInput.validate("=> Enter new product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
-        String unit_price = ValidationInput.validate("=> Enter new unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
-        String qty = ValidationInput.validate("=> Enter new product quantity: ", "invalid qty", "^[0-9]+");
-        System.out.println( "\""+ name + "\"" + " has been added to unsaved updated table successfully.");
-        return new Product(name, Double.parseDouble(unit_price), Integer.parseInt(qty));
+
+    public Product insertUpdateProduct( List<Product> productList) {
+        String id = ValidationInput.validate("=> Enter product id to update: ", "Invalid id", "^[0-9]+");
+        boolean found = false;
+        for (Product product : productList) {
+            if (product.getId() == Integer.parseInt(id)) {
+                found = true;
+                break;
+            }
+        }
+
+        if(found) {
+            String name = ValidationInput.validate("=> Enter new product name: ", "Invalid product name", "[a-zA-Z\\s]+[a-zA-Z]");
+            String unit_price = ValidationInput.validate("=> Enter new unit price: ", "Invalid unit price", "^[0-9]+[.]+[0-9]+");
+            String qty = ValidationInput.validate("=> Enter new product quantity: ", "invalid qty", "^[0-9]+");
+            System.out.println( "\""+ name + "\"" + " has been added to unsaved updated table successfully.");
+            return new Product(Integer.parseInt(id),name, Double.parseDouble(unit_price), Integer.parseInt(qty), LocalDate.now());
+        } else {
+            System.out.println("Id not found! failed to update!");
+            return null;
+        }
+
     }
 
-    public int findId() {
-        String updateId = ValidationInput.validate("=> Enter product id to update: ", "Invalid id", "^[0-9]+");
-        return Integer.parseInt(updateId);
-    }
+
 
     public void savedProduct(List<Product> products) {
         if(!products.isEmpty()) {
@@ -97,7 +112,7 @@ public class ProductView {
                     savedProduct(products);
                     break;
                 case "uu":
-
+//                    savedUpdateProduct(updateProducts);
                     break;
                 case "b":
                     return;

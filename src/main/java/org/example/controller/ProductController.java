@@ -13,6 +13,7 @@ public class ProductController {
     }
 
     public void savedProduct(){
+//        productView.displaySavedCase(productService.savedProduct(), productService.displayUpdatedProduct());
         productView.displaySavedCase(productService.savedProduct());
     }
 
@@ -24,14 +25,8 @@ public class ProductController {
     }
 
     public void insertUpdateProduct() {
-        if(productService.findId(productView.findId())) {
-            productService.insertUpdateProduct(productView.insertUpdateProduct());
-        } else {
-            System.out.println("Id not found! cannot update!");
-        }
-
+        productService.insertUpdateProduct(productView.insertUpdateProduct(productService.displayProduct()));
     }
-
     public void exitProgram() {
         productView.exitProgram(productService.exitProgram());
     }
