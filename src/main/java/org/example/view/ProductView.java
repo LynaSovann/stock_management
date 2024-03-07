@@ -50,7 +50,6 @@ public class ProductView {
         RenderTable.tableRender(RenderTable.header_title, products, "");
     }
 
-
     public Product insertUpdateProduct( List<Product> productList) {
         String id = ValidationInput.validate("=> Enter product id to update: ", "Invalid id", "^[0-9]+");
         boolean found = false;
@@ -73,8 +72,6 @@ public class ProductView {
         }
 
     }
-
-
 
     public void savedProduct(List<Product> products) {
         if(!products.isEmpty()) {
@@ -112,7 +109,6 @@ public class ProductView {
                     savedProduct(products);
                     break;
                 case "uu":
-                    System.out.println("Saving update hasn't done yet");
                     savedUpdateProduct(updateProducts);
                     break;
                 case "b":
@@ -125,7 +121,7 @@ public class ProductView {
     }
 
 
-    public void exitProgram(boolean exit) {
+    public void exitProgram(boolean exit, List<Product> savingProducts, List<Product> updatingProducts) {
         if(exit) {
             goodbyeTemplat();
         } else {
@@ -134,7 +130,12 @@ public class ProductView {
             System.out.println("N/n to exit and don't save");
             String yon = ValidationInput.validate("=> Enter your option: ", "Invalid option to exit", "^[yYnN]$");
             if(yon.equals("Y") | yon.equals("y")) {
-                System.out.println("Saving insert and update to saved box...");
+                if(!savingProducts.isEmpty()) {
+                    savedProduct(savingProducts);
+                }
+                if(!updatingProducts.isEmpty()) {
+                    savedUpdateProduct(updatingProducts);
+                }
                 goodbyeTemplat();
             } else {
                 System.out.println("No saving...");

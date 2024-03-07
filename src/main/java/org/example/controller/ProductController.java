@@ -27,7 +27,7 @@ public class ProductController {
         productService.insertUpdateProduct(productView.insertUpdateProduct(productService.displayProduct()));
     }
     public void exitProgram() {
-        productView.exitProgram(productService.exitProgram());
+        productView.exitProgram(productService.exitProgram(),productService.savedProduct(), productService.displayUpdatedProduct()) ;
     }
 
 }
