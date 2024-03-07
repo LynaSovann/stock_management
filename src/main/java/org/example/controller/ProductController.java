@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     public void displayUnsavedProduct() {
-        productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.saveUpdateProduct());
+        productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.displayUpdatedProduct());
     }
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
@@ -27,7 +27,7 @@ public class ProductController {
         productService.insertUpdateProduct(productView.insertUpdateProduct(productService.displayProduct()));
     }
     public void exitProgram() {
-        productView.exitProgram(productService.exitProgram());
+        productView.exitProgram(productService.exitProgram(),productService.savedProduct(), productService.displayUpdatedProduct()) ;
     }
 
 }
