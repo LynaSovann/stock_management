@@ -10,6 +10,9 @@ import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
     public static List<Product> products = new ArrayList<>();
+    public static List<Product> updatedProducts = new ArrayList<>();
+    public static List<Integer> updateId = new ArrayList<>();
+
     private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "123";
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
             """;
     private static final String GET_ALL_SAVED_PRODUCTS = "SELECT * FROM saved_product_tb;";
     private static final String SAVED_PRODUCT = "INSERT INTO saved_product_tb VALUES (DEFAULT, ? , ? ,?, NOW() )";
+    private static final String UPDATE_PRODUCT = "UPDATE saved_product_tb SET name = ?, unit_price = ?, qty = ?, imported_date = ? where id = ?;";
 
     @Override
     public void insertUnsavedProduct(Product product) {
@@ -35,7 +39,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void savedProduct() {
+    public List<Product> displayUpdatedProduct() {
+        return updatedProducts;
+    }
+
+    @Override
+    public List<Product> savedProduct() {
+        List<Product> productList = new ArrayList<>();
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
@@ -43,20 +53,17 @@ public class ProductServiceImpl implements ProductService {
             Statement statement = connection.createStatement();
             statement.executeUpdate(CREATE_SAVED_PRODUCT_TB);
 
+
             for(Product pro : products) {
                 PreparedStatement preparedStatement = connection.prepareStatement(SAVED_PRODUCT);
                 preparedStatement.setString(1, pro.getName());
                 preparedStatement.setDouble(2, pro.getUnit_price());
                 preparedStatement.setInt(3, pro.getQty());
-                if(preparedStatement.executeUpdate() == 1) {
-                    System.out.println("* New product: "+  pro.getName() + " was inserted successfully *");
-//                    products.remove(pro);
-                } else {
-                    System.out.println("Failed to save product: " + pro.getName() + " to stock");
-                }
-
+                productList.add(pro);
+                preparedStatement.executeUpdate();
             }
 
+            products.clear();
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -68,6 +75,7 @@ public class ProductServiceImpl implements ProductService {
                 System.out.println(e.getMessage());
             }
         }
+        return productList;
     }
 
     @Override
@@ -102,41 +110,53 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
-//    @Override
-//    public void insertSavedProduct(Product product) {
-//        Connection connection = null;
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//            Statement statement = connection.createStatement();
-////            statement.executeUpdate(CREATE_UNSAVED_PRODUCT_TB);
-//            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ONE_UNSAVED_PRODUCT);
-//            preparedStatement.setString(1, product.getName());
-//            preparedStatement.setDouble(2, product.getUnit_price());
-//            preparedStatement.setInt(3, product.getQty());
-//            if(preparedStatement.executeUpdate() == 1) {
-//                System.out.println("added product " +  product.getName() + " to stock successfully");
-//            } else {
-//                System.out.println("Failed to add product to stock");
-//            }
-//
-//        } catch(SQLException | ClassNotFoundException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            try {
-//                assert connection != null;
-//                connection.close();
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//
-//    }
+    @Override
+    public List<Product> saveUpdateProduct() {
+        List<Product> savedProducts = new ArrayList<>();
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            for(Product updateProduct : updatedProducts) {
+                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT);
+                preparedStatement.setString( 1,updateProduct.getName());
+                preparedStatement.setDouble(2, updateProduct.getUnit_price());
+                preparedStatement.setInt(3, updateProduct.getQty());
+                preparedStatement.setDate(4, java.sql.Date.valueOf(updateProduct.getImported_date()) );
+                preparedStatement.setInt(5, updateProduct.getId());
+                if(preparedStatement.executeUpdate() == 1) {
+                    savedProducts.add(updateProduct);
+                }
+            }
+
+            updatedProducts.clear();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                assert connection != null;
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+        return savedProducts;
+    }
 
     @Override
-    public void updateProduct(int id) {
-
+    public boolean exitProgram() {
+        return products.isEmpty() && updatedProducts.isEmpty();
     }
+
+    @Override
+    public void insertUpdateProduct(Product product) {
+        updatedProducts.add(product);
+    }
+
 
     @Override
     public void deleteProduct(int id) {

@@ -10,7 +10,7 @@ public class StockManagement {
     public void run() {
 
         ProductController productController = new ProductController();
-
+        boolean running = true;
         String choice;
         do {
             System.out.println("\n\n");
@@ -36,7 +36,7 @@ public class StockManagement {
                     System.out.println("read data");
                     break;
                 case "u":
-                    System.out.println("update data");
+                    productController.insertUpdateProduct();
                     break;
                 case "d":
                     System.out.println("delete data");
@@ -56,15 +56,13 @@ public class StockManagement {
                 case "re":
                     break;
                 case "e":
-                    System.out.println("==================================");
-                    System.out.println("\t* Goodbye");
-                    System.out.println("==================================");
+                    productController.exitProgram();
                     break;
                 default:
                     System.out.println("Invalid option!");
                     break;
             }
         } while(!choice.equalsIgnoreCase("e"));
-
+       // !choice.equalsIgnoreCase("e")
     }
 }

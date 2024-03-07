@@ -7,9 +7,14 @@ import java.util.List;
 public interface ProductService {
     void insertUnsavedProduct(Product product);
     List<Product> displayUnsavedProduct();
-    void savedProduct();
+//    void savedProduct();
+    List<Product> savedProduct();
     List<Product> displayProduct();
+    List<Product> displayUpdatedProduct();
 //    void insertSavedProduct(Product product);
-    void updateProduct(int id);
+    void insertUpdateProduct(Product product);
+    List<Product> saveUpdateProduct();
+//    boolean findId(int id);
     void deleteProduct(int id);
+    boolean exitProgram();
 }

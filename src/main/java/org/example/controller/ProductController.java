@@ -12,21 +12,22 @@ public class ProductController {
         productService.insertUnsavedProduct(productView.insertUnsavedProduct());
     }
 
-//    public void displayUnsavedProduct() {
-//        productView.displayUnsavedProduct(productService.displayUnsavedProduct());
-//    }
-
-    public void savedProduct() {
-        productService.savedProduct();
+    public void savedProduct(){
+        productView.displaySavedCase(productService.savedProduct(), productService.saveUpdateProduct());
     }
 
     public void displayUnsavedProduct() {
-        productView.displayUnsavedProduct(productService.displayUnsavedProduct());
+        productView.displayUnsavedProduct(productService.displayUnsavedProduct(), productService.displayUpdatedProduct());
     }
-
     public void displayProduct() {
         productView.displayProduct(productService.displayProduct());
     }
 
+    public void insertUpdateProduct() {
+        productService.insertUpdateProduct(productView.insertUpdateProduct(productService.displayProduct()));
+    }
+    public void exitProgram() {
+        productView.exitProgram(productService.exitProgram());
+    }
 
 }
