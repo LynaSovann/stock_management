@@ -30,4 +30,19 @@ public class ProductController {
         productView.exitProgram(productService.exitProgram(),productService.savedProduct(), productService.saveUpdateProduct()) ;
     }
 
+    public void deleteProduct() {
+        productService.deleteProduct();
+    }
+
+    public void searchProduct() {
+        productService.searchProduct();
+    }
+
+    public void setRow() {
+        productService.setRow();
+    }
+
+    public void readOneProduct() {
+        productService.readOneProduct();
+    }
 }

@@ -36,21 +36,21 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
-//    @Override
-//    public List<Product> displayUpdatedProduct() {
-//        try {
-//            return updatedProducts;
-//        } catch (NullPointerException e) {
-//            System.out.println(e.getMessage());
-//            return null;
-//        }
-//    }
-
-
     @Override
     public List<Product> displayUpdatedProduct() {
-        return updatedProducts;
+        try {
+            return updatedProducts;
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
+
+
+//    @Override
+//    public List<Product> displayUpdatedProduct() {
+//        return updatedProducts;
+//    }
 
     @Override
     public List<Product> savedProduct() {
@@ -168,10 +168,22 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void deleteProduct(int id) {
-
+    public void deleteProduct() {
+        System.out.println("Enter id to delete");
     }
 
+    @Override
+    public void searchProduct() {
+        System.out.println("This is search method!");
+    }
 
+    @Override
+    public void setRow() {
+        System.out.println("This is setRow method");
+    }
 
+    @Override
+    public void readOneProduct() {
+        System.out.println("Do read one product case here");
+    }
 }
