@@ -13,7 +13,7 @@ public class ProductController {
     }
 
     public void savedProduct(){
-        productView.displaySavedCase(productService.savedProduct(), productService.saveUpdateProduct());
+        productView.displaySavedCase(productService.savedProduct(), productService.saveUpdateProduct()); // kae klang nis
     }
 
     public void displayUnsavedProduct() {

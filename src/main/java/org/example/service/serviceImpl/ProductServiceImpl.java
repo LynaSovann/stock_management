@@ -36,6 +36,17 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+//    @Override
+//    public List<Product> displayUpdatedProduct() {
+//        try {
+//            return updatedProducts;
+//        } catch (NullPointerException e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
+//    }
+
+
     @Override
     public List<Product> displayUpdatedProduct() {
         return updatedProducts;
