@@ -11,8 +11,6 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     public static List<Product> products = new ArrayList<>();
     public static List<Product> updatedProducts = new ArrayList<>();
-    public static List<Integer> updateId = new ArrayList<>();
-
     private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "123";
