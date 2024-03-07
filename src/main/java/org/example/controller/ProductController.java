@@ -13,8 +13,7 @@ public class ProductController {
     }
 
     public void savedProduct(){
-//        productView.displaySavedCase(productService.savedProduct(), productService.displayUpdatedProduct());
-        productView.displaySavedCase(productService.savedProduct());
+        productView.displaySavedCase(productService.savedProduct(), productService.saveUpdateProduct());
     }
 
     public void displayUnsavedProduct() {
