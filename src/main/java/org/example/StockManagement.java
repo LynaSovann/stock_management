@@ -10,7 +10,6 @@ public class StockManagement {
     public void run() {
 
         ProductController productController = new ProductController();
-        boolean running = true;
         String choice;
         do {
             System.out.println("\n\n");
@@ -63,6 +62,5 @@ public class StockManagement {
                     break;
             }
         } while(!choice.equalsIgnoreCase("e"));
-       // !choice.equalsIgnoreCase("e")
     }
 }
