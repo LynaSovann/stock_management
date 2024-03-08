@@ -34,8 +34,43 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+//    @Override
+//    public void savedProduct() {
+//        Connection connection = null;
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//            Statement statement = connection.createStatement();
+//            statement.executeUpdate(CREATE_SAVED_PRODUCT_TB);
+//
+//            for(Product pro : products) {
+//                PreparedStatement preparedStatement = connection.prepareStatement(SAVED_PRODUCT);
+//                preparedStatement.setString(1, pro.getName());
+//                preparedStatement.setDouble(2, pro.getUnit_price());
+//                preparedStatement.setInt(3, pro.getQty());
+//                if(preparedStatement.executeUpdate() == 1) {
+//                    System.out.println("* New product: "+  pro.getName() + " was inserted successfully *");
+//                } else {
+//                    System.out.println("Failed to save product: " + pro.getName() + " to stock");
+//                }
+//            }
+//
+//            products.clear();
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            try {
+//                assert connection != null;
+//                connection.close();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
+
     @Override
-    public void savedProduct() {
+    public List<Integer> savedProduct() {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
@@ -50,13 +85,12 @@ public class ProductServiceImpl implements ProductService {
                 preparedStatement.setInt(3, pro.getQty());
                 if(preparedStatement.executeUpdate() == 1) {
                     System.out.println("* New product: "+  pro.getName() + " was inserted successfully *");
-//                    products.remove(pro);
                 } else {
                     System.out.println("Failed to save product: " + pro.getName() + " to stock");
                 }
-
             }
 
+            products.clear();
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -68,7 +102,9 @@ public class ProductServiceImpl implements ProductService {
                 System.out.println(e.getMessage());
             }
         }
+        return null;
     }
+
 
     @Override
     public List<Product> displayProduct() {
@@ -100,6 +136,11 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return products;
+    }
+
+    @Override
+    public boolean exitProgram() {
+        return !products.isEmpty();
     }
 
 //    @Override

@@ -28,5 +28,12 @@ public class ProductController {
         productView.displayProduct(productService.displayProduct());
     }
 
+<<<<<<< HEAD
+=======
+
+//    public void insertProduct() {
+//        productService.insertUnsavedProduct(productView.insertProduct());
+//    }
+>>>>>>> c88cece (...)
 
 }
