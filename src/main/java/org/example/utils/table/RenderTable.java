@@ -15,7 +15,6 @@ public class RenderTable {
     private static final CellStyle ALIGN_CENTER = new CellStyle(CellStyle.HorizontalAlign.CENTER);
 
     public static String[] header_title = {"ID","Name","Unit Price","QTY","Imported Date"};
-
     public static void renderMenu() {
         Table table = new Table(3, BorderStyle.UNICODE_ROUND_BOX);
         List<String> menus = List.of(
@@ -33,10 +32,11 @@ public class RenderTable {
         System.out.println(table.render());
 
     }
+    public static int page = 5 ;
 
     public static void tableRender(String[] header_title,List<Product> productList,String useForWhat){
         String option = null;
-        int page = 1,n=0;
+        int n=0;
         do {
             Table t = new Table(header_title.length, BorderStyle.UNICODE_ROUND_BOX,
                     ShownBorders.ALL);
@@ -96,7 +96,7 @@ public class RenderTable {
             }
 
             if (useForWhat.isEmpty())
-                productList.stream().distinct().skip(n).limit(3).forEach(product -> {
+                productList.stream().distinct().skip(n).limit(page).forEach(product -> {
                     t.addCell(String.valueOf(product.getId()), ALIGN_CENTER);
                     t.addCell(product.getName(), ALIGN_CENTER);
                     t.addCell(String.valueOf(product.getUnit_price()), ALIGN_CENTER);
@@ -104,35 +104,44 @@ public class RenderTable {
                     t.addCell(String.valueOf(product.getImported_date()), ALIGN_CENTER);
                 });
 
-            t.addCell("Page : "+ page +"/" + ((productList.size()/3)+1), ALIGN_CENTER, 2);
+            t.addCell("Page : "+ ((n/page)+1) +"/" + ((productList.size()/page)), ALIGN_CENTER, 2);
             t.addCell("Total Records : " + productList.size(), ALIGN_CENTER, 3);
             System.out.println(t.render());
-            System.out.println("F) First \t P) Previous \t N) Next \t L) Last \t G) Goto");option=new Scanner(System.in).next();
+            System.out.println("F) First \t P) Previous \t N) Next \t L) Last \t G) Goto \t B) Back");
+            System.out.print("Choose: ");option=new Scanner(System.in).next();
             switch (option){
                 case "F": case "f":
                     n=0;
-                    page=1;
                     break;
                 case "P": case "p":
-                    if(n-3<0){
-                        page = 0;
+                    if(n-page<0){
                         n=0;
-                    }else n=n-3;
+                    }else n=n-page;
                     break;
                 case "N": case "n":
-                    n=n+3;
-                    page++;
+                    n=n+page;
                     break;
                 case "L": case "l":
-                    n= (productList.size()/3)+1;
+                    n= (productList.size()/page)+1;
                     break;
                 case "G": case "g":
-                    System.out.print("-> Go to page: ");n=new Scanner(System.in).nextInt();
+                    System.out.print("-> Go to page: "); int go =new Scanner(System.in).nextInt();
+                    go--;
+                    n = (page * go);
+//                    if (go == 1) go--;
+//                    else {
+//                        go=n;
+//                        go+=page;
+//                    }
+//                    n= (productList.size() - (productList.size()-go));
+                    break;
+                case "B" : case "b":
                     break;
             }
-        }while (option != "g" || option != "G");
+        }while (!option.equalsIgnoreCase("b"));
 
     }
+
 
 
 

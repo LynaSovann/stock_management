@@ -2,18 +2,20 @@ package org.example.service.serviceImpl;
 
 import org.example.model.Product;
 import org.example.service.ProductService;
+import org.example.utils.table.RenderTable;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ProductServiceImpl implements ProductService {
     public static List<Product> products = new ArrayList<>();
     public static List<Product> updatedProducts = new ArrayList<>();
-    private static final String URL = "jdbc:postgresql://localhost:5432/min_pro_db";
+    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "123";
+    private static final String PASSWORD = "1234";
     private static final String CREATE_SAVED_PRODUCT_TB = """
             CREATE TABLE IF NOT EXISTS saved_product_tb (
                 id SERIAL PRIMARY KEY,
@@ -179,7 +181,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void setRow() {
-        System.out.println("This is setRow method");
+        System.out.print("Enter Amount of Row: ");
+        RenderTable.page = new Scanner(System.in).nextInt();
     }
 
     @Override

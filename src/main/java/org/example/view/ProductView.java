@@ -120,7 +120,6 @@ public class ProductView {
         } while(!choice.equalsIgnoreCase("b"));
     }
 
-
     public void exitProgram(boolean exit, List<Product> savingProducts, List<Product> updatingProducts) {
         if(exit) {
             goodbyeTemplat();
