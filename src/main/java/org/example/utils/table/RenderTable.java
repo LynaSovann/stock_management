@@ -120,6 +120,7 @@ public class RenderTable {
                     break;
                 case "N": case "n":
                     n=n+page;
+                    if (n+page> productList.size()) n=0;
                     break;
                 case "L": case "l":
                     n= (productList.size()/page)+1;
@@ -128,6 +129,7 @@ public class RenderTable {
                     System.out.print("-> Go to page: "); int go =new Scanner(System.in).nextInt();
                     go--;
                     n = (page * go);
+                    if (page * go >= productList.size()) n=0;
 //                    if (go == 1) go--;
 //                    else {
 //                        go=n;
