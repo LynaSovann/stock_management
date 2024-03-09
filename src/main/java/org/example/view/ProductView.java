@@ -1,10 +1,12 @@
 package org.example.view;
 
 import org.example.model.Product;
+import org.example.service.serviceImpl.ProductServiceImpl;
 import org.example.utils.table.RenderTable;
 import org.example.utils.validation.ValidationInput;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductView {
@@ -21,7 +23,7 @@ public class ProductView {
     public void displayUnsavedProduct(List<Product> products, List<Product> updateProduct) {
         String choice;
 
-        RenderTable.tableRender(RenderTable.header_title, products, "");
+        RenderTable.tableRender(RenderTable.header_title,"", "product", products,"","");
         do {
             System.out.println("I for Unsaved Insertion");
             System.out.println("U for Unsaved Update");
@@ -31,10 +33,10 @@ public class ProductView {
 
             switch (choice.toLowerCase()) {
                 case "i":
-                    RenderTable.tableRender(RenderTable.header_title, products, "");
+                    RenderTable.tableRender(RenderTable.header_title, "Unsaved Product", "product",products,"","");
                     break;
                 case "u":
-                    RenderTable.tableRender(RenderTable.header_title, updateProduct, "");
+                    RenderTable.tableRender(RenderTable.header_title, "Unsaved Update Product", "product",updateProduct,"","");
                     break;
                 case "b":
                     return;
@@ -47,7 +49,7 @@ public class ProductView {
 
 
     public void displayProduct(List<Product> products) {
-        RenderTable.tableRender(RenderTable.header_title, products, "");
+        RenderTable.tableRender(RenderTable.header_title,"Product List", "db", products, ProductServiceImpl.GET_ALL_SAVED_PRODUCTS,"");
     }
 
     public Product insertUpdateProduct( List<Product> productList) {

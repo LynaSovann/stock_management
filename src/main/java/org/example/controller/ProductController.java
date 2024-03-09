@@ -49,5 +49,5 @@ public class ProductController {
     public void readOneProduct() {
         productService.readOneProduct();
     }
-
+    public void backup(){productService.backup();}
 }
