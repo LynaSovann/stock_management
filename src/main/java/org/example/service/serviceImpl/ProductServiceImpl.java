@@ -245,6 +245,7 @@ public class ProductServiceImpl implements ProductService {
     public void setRow() {
         System.out.print("Enter Amount of Row: ");
         RenderTable.page = new Scanner(System.in).nextInt();
+        RenderTable.PAGE_SIZE = RenderTable.page;
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.example.utils.table;
 
 import org.example.model.Product;
 import org.example.service.serviceImpl.ProductServiceImpl;
+import org.example.utils.validation.ValidationInput;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
@@ -14,6 +15,9 @@ import java.util.Scanner;
 
 
 public class RenderTable {
+
+    public static int PAGE_SIZE = 5;
+
     public static final CellStyle ALIGN_CENTER = new CellStyle(CellStyle.HorizontalAlign.CENTER);
 
     public static String[] header_title = {"ID","Name","Unit Price","QTY","Imported Date"};
@@ -36,11 +40,18 @@ public class RenderTable {
     }
     public static int page = 5 ;
 
+//    public static void setRow(){
+//        String row = ValidationInput.validate("=> Set row to : ","Invalid Input","[0-9]+");
+//        PAGE_SIZE = Integer.parseInt(row);
+//    }
+
     public static void tableRender(String[] header_col,String main_title,String userFor,List<Product> products,String query,String id) {
         String option = null;
         int n = 0;
+        int pageNumber = 1;
 
         do {
+            int offset = (pageNumber - 1) * PAGE_SIZE;
 
             Table t = new Table(header_col.length, BorderStyle.UNICODE_ROUND_BOX,
                     ShownBorders.ALL);
@@ -82,12 +93,13 @@ public class RenderTable {
                     int count = 0;
                     Class.forName("org.postgresql.Driver");
                     Statement statement = connection.createStatement();
-                    String query_db = query + (!id.isEmpty() ? " WHERE id=" + Integer.parseInt(id) : ";");
+                    String query_db = query + (!id.isEmpty() ? " WHERE id=" + Integer.parseInt(id) : "") + " LIMIT "+ PAGE_SIZE + " OFFSET " + offset;
                     ResultSet resultSet = statement.executeQuery(query_db);
                     if (resultSet.isBeforeFirst())
                         for (int i = 0; i < header_col.length; i++) {
                             t.setColumnWidth(i, 25, 25);
                             t.addCell(header_col[i], ALIGN_CENTER);
+
                         }
                     while (resultSet.next()) {
                         count++;
@@ -97,21 +109,23 @@ public class RenderTable {
                         t.addCell(String.valueOf(resultSet.getInt(4)), ALIGN_CENTER);
                         t.addCell(String.valueOf(resultSet.getDate(5).toLocalDate()), ALIGN_CENTER);
                     }
+
                     if (count == 0) {
                         tableRender(new String[]{"No product in database"}, "", "msg", new ArrayList<>(), "", "");
                         return;
                     }
-                    if (count==1){
-                        System.out.println(t.render());
-                        return;
-                    }
+//                    if (count==1){
+//                        System.out.println(t.render());
+//                        return;
+//                    }
+//                    t.addCell("Page : " + ((n / page) + 1) + "/" + ((products.size() / page)), ALIGN_CENTER, 2);
+//                    t.addCell("Page : " + pageNumber + " / " + ((products.size() / page)), ALIGN_CENTER, 2);
                     t.addCell("Page : " + ((n / page) + 1) + "/" + ((products.size() / page)), ALIGN_CENTER, 2);
                     t.addCell("Total Records : " + count, ALIGN_CENTER, 3);
+//                    t.addCell("Total Records : " + count, ALIGN_CENTER, 3);
                     System.out.println(t.render());
-                    return;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
+//                    return;
+                } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -142,12 +156,16 @@ public class RenderTable {
                     break;
                 case "P":
                 case "p":
+                    if (pageNumber > 1) {
+                        pageNumber--;
+                    }
                     if (n - page < 0) {
                         n = 0;
                     } else n = n - page;
                     break;
                 case "N":
                 case "n":
+                    pageNumber++;
                     n = n + page;
                     if (n + page > products.size()) n = 0;
                     break;
