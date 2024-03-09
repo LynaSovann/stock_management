@@ -26,6 +26,7 @@ public class StockManagement {
             switch (choice.toLowerCase()) {
                 case "*":
                     productController.displayProduct();
+                    new Scanner(System.in).next();
                     break;
                 case "w":
                     productController.insertUnsavedProduct();
@@ -41,6 +42,7 @@ public class StockManagement {
                     break;
                 case "s":
                     productController.searchProduct();
+                    new Scanner(System.in).next();
                     break;
                 case "se":
                     productController.setRow();
@@ -52,6 +54,7 @@ public class StockManagement {
                     productController.displayUnsavedProduct();
                     break;
                 case "ba":
+                    productController.backup();
                     break;
                 case "re":
                     break;

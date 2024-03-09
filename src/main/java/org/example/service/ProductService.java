@@ -23,4 +23,5 @@ public interface ProductService {
     void setRow();
 
     void readOneProduct();
+    void backup();
 }
