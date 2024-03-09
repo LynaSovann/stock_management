@@ -23,7 +23,7 @@ public class ProductView {
     public void displayUnsavedProduct(List<Product> products, List<Product> updateProduct) {
         String choice;
 
-        RenderTable.tableRender(RenderTable.header_title,"", "product", products,"","");
+//        RenderTable.tableRender(RenderTable.header_title,"", "product", products,"","");
         do {
             System.out.println("I for Unsaved Insertion");
             System.out.println("U for Unsaved Update");

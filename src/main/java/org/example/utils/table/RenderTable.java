@@ -2,7 +2,6 @@ package org.example.utils.table;
 
 import org.example.model.Product;
 import org.example.service.serviceImpl.ProductServiceImpl;
-import org.example.utils.validation.ValidationInput;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
@@ -39,11 +38,6 @@ public class RenderTable {
 
     }
     public static int page = 5 ;
-
-//    public static void setRow(){
-//        String row = ValidationInput.validate("=> Set row to : ","Invalid Input","[0-9]+");
-//        PAGE_SIZE = Integer.parseInt(row);
-//    }
 
     public static void tableRender(String[] header_col,String main_title,String userFor,List<Product> products,String query,String id) {
         String option = null;
